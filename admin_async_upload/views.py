@@ -36,4 +36,4 @@ class UploadView(View):
         return HttpResponse('chunk exists')
 
 
-admin_resumable = login_required(UploadView.as_view())
+admin_resumable = UploadView.as_view()
