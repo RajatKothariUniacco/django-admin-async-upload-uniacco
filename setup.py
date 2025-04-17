@@ -7,7 +7,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-admin-async-upload',
+    name='django-admin-async-upload-uniacco',
     version='3.0.4',
     packages=['admin_async_upload'],
     include_package_data=True,
