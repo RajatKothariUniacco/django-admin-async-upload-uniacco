@@ -2,6 +2,10 @@
 <script>
 (function($) {
     $(function() {
+        function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;
+        }
 
         $('form').submit(function() {
             if($(this).hasClass('{{ name }}_disabled')) {
@@ -20,6 +24,9 @@
                 field_name: '{{ field_name }}',
                 content_type_id: '{{ content_type_id }}'
             },
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
         });
         r.assignBrowse($('#{{ id }}_input_file'));
         r.on('fileAdded', function(file) {

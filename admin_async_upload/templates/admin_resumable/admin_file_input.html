@@ -10,6 +10,11 @@ if (typeof djangoAdminResumableFieldListenerSetUp=="undefined")
 
 
 (function($) {
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
     function setupField(elementId) {
 
         console.log('setting up '+ elementId);
@@ -28,9 +33,12 @@ if (typeof djangoAdminResumableFieldListenerSetUp=="undefined")
             target: '{% url 'admin_resumable' %}',
             chunkSize: {{ chunk_size }},
             query: {
-                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
                 field_name: '{{ field_name }}',                 {# FIXME: this probably should be checked at run time for added inlines #}
-                content_type_id: '{{ content_type_id }}'        {# FIXME: this probably should be checked at run time for added inlines #}
+                content_type_id: '{{ content_type_id }}',       {# FIXME: this probably should be checked at run time for added inlines #}
+                csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+            },
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
             },
             simultaneousUploads: {{ simultaneous_uploads }}, //3 is better, 1 is used for local testing;
         });
