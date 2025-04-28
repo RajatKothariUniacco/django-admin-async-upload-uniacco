@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse
 from django.utils.functional import cached_property
@@ -36,4 +37,4 @@ class UploadView(View):
         return HttpResponse('chunk exists')
 
 
-admin_resumable = login_required(UploadView.as_view())
+admin_resumable = csrf_exempt(login_required(UploadView.as_view()))
